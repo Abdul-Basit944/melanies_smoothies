@@ -14,8 +14,6 @@ session=cnx.session()
 
 # Fetch fruit options
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col ('SEARCH_ON'))
-st.dataframe(data=my_dataframe , use_container_width_true)
-st.stop()
 # Convert to a list for the multi-select
 fruit_options = my_dataframe.to_pandas()['FRUIT_NAME'].tolist()
 
