@@ -1,5 +1,6 @@
 import streamlit as st
 from snowflake.snowpark.functions import col
+import requests
 
 st.title(":cup_with_straw: Customize Your Smoothie")
 st.write("Choose The Fruit You want in your Custom Smoothie")
@@ -43,11 +44,9 @@ if ingredients_list:
         except Exception as e:
             st.error(f"An error occurred: {e}")
 
-
-import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-#st.text(fruityvice_response.json())
 fv_df = st.dataframe(data=fruityvice_response.json() , use_container_width=True)
+
 
 
 
