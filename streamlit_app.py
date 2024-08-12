@@ -37,9 +37,19 @@ if ingredients_list:
 
         # Display nutrition information
         st.subheader(f'{fruit_chosen} Nutrition Information')
-        fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
-        fruityvice_data = fruityvice_response.json()
-        st.dataframe(pd.DataFrame([fruityvice_data]), use_container_width=True)
+
+        try:
+            fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
+            fruityvice_data = fruityvice_response.json()
+
+            # Check the format of fruityvice_data
+            st.write("API response data:", fruityvice_data)
+
+            # Convert to DataFrame; adjust if needed based on actual data structure
+            df = pd.DataFrame([fruityvice_data])  # Assuming data is a dictionary
+            st.dataframe(df, use_container_width=True)
+        except Exception as e:
+            st.error(f"Error fetching or displaying data: {e}")
 
     # Create the SQL insert statement
     my_insert_stmt = f"""INSERT INTO smoothies.public.orders (ingredients, name_on_order)
@@ -56,6 +66,7 @@ if ingredients_list:
             st.success(f'Your Smoothie is ordered, {name_on_order}!', icon="✅")
         except Exception as e:
             st.error(f"An error occurred: {e}")
+
 
 
 
