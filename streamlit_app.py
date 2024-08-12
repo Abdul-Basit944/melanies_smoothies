@@ -39,7 +39,7 @@ if ingredients_list:
         st.subheader(f'{fruit_chosen} Nutrition Information')
         fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
         fruityvice_data = fruityvice_response.json()
-        st.dataframe(pd.DataFrame(fruiyvice_data), use_container_width=True)
+        st.dataframe(pd.DataFrame([fruityvice_data]), use_container_width=True)
 
     # Create the SQL insert statement
     my_insert_stmt = f"""INSERT INTO smoothies.public.orders (ingredients, name_on_order)
@@ -56,14 +56,6 @@ if ingredients_list:
             st.success(f'Your Smoothie is ordered, {name_on_order}!', icon="✅")
         except Exception as e:
             st.error(f"An error occurred: {e}")
-
-
-
-
-
-
-
-
 
 
 
